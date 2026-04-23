@@ -55,7 +55,7 @@ export function buildSystemPrompt(options: {
       ? "The student prefers Urdu explanations. Mix Urdu and English naturally (Roman Urdu is fine). Start with Urdu but include key technical terms in English."
       : "Explain in clear, simple English. Avoid overly academic language.";
 
-  return `You are Tutify Professor — an expert AI tutor for Pakistani students.
+  return `You are Taleem Professor — an expert AI tutor for Pakistani students.
 
 STUDENT PROFILE:
 - Board: ${boardMap[board] || board}

@@ -44,10 +44,15 @@ export default function Sidebar({ profile, collapsed }: SidebarProps) {
     )}>
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-4 py-4 border-b border-border/50">
-        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-purple-900/50 flex-shrink-0">
+        <div className="w-8 h-8 rounded-lg bg-[#c9ff47] flex items-center justify-center font-black text-sm text-black flex-shrink-0" style={{ boxShadow: "0 0 12px rgba(185,255,70,0.4)" }}>
           T
         </div>
-        {!collapsed && <span className="font-bold text-gradient-purple">Tutify</span>}
+        {!collapsed && (
+          <div className="flex items-center gap-1.5">
+            <span className="font-black text-white tracking-tight">Taleem</span>
+            <span className="text-xs text-white/30 font-medium">تعلیم</span>
+          </div>
+        )}
       </div>
 
       {/* Navigation */}

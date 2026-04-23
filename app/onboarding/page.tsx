@@ -78,7 +78,7 @@ export default function OnboardingPage() {
         {/* Logo */}
         <div className="flex items-center gap-2 justify-center mb-8">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold shadow-lg shadow-purple-900/50">T</div>
-          <span className="text-lg font-bold text-gradient-purple">Tutify</span>
+          <span className="text-lg font-bold text-gradient-purple">Taleem</span>
         </div>
 
         {/* Progress bar */}

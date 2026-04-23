@@ -34,7 +34,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="flex items-center gap-2.5 px-4 py-4 border-b border-border/50">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold text-sm">T</div>
           <div>
-            <div className="font-bold text-sm text-gradient-purple">Tutify</div>
+            <div className="font-bold text-sm text-gradient-purple">Taleem</div>
             <div className="text-xs text-muted-foreground">Admin Panel</div>
           </div>
         </div>
