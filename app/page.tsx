@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -83,8 +84,7 @@ const COMPETITORS = [
 
 export default function LandingPage() {
   const [audience, setAudience] = useState<"student" | "parent">("student");
-  const [openPhase, setOpenPhase] = useState<number>(0);
-  const [commTab, setCommTab] = useState<"groups" | "duels" | "focus" | "leaderboard">("groups");
+  const [openPhase, setOpenPhase] = useState(0);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-lime-400/20 selection:text-lime-300">
@@ -201,6 +201,7 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
+      </nav>
 
         {/* Hero product mock */}
         <motion.div
@@ -277,8 +278,6 @@ export default function LandingPage() {
               <div className="w-10 h-10 bg-lime-400 rounded-xl flex items-center justify-center glow-lime"><MessageSquare className="w-4 h-4 text-black" /></div>
             </div>
           </div>
-        </motion.div>
-      </section>
 
       {/* ── Second marquee ── */}
       <div className="py-3 border-y border-white/5 bg-black/40 overflow-hidden">
@@ -373,10 +372,8 @@ export default function LandingPage() {
                 <h3 className="font-bold mb-1.5">{title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </AnimatePresence>
+          </motion.div>
 
       {/* ── Community ── */}
       <section className="py-24 px-4" id="community">
@@ -492,8 +489,7 @@ export default function LandingPage() {
                   ))}
                   <button className="w-full py-3 rounded-xl border border-orange-500/30 bg-orange-900/10 text-orange-400 text-sm font-bold hover:bg-orange-900/20 transition-colors flex items-center justify-center gap-2"><Swords className="w-4 h-4" /> Challenge a Friend</button>
                 </div>
-              </motion.div>
-            )}
+              </div>
 
             {commTab === "focus" && (
               <motion.div key="f" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -783,9 +779,6 @@ export default function LandingPage() {
               </div>
               <p className="text-xs text-muted-foreground mt-6">FSc Part 1 · FSc Part 2 · Matric 9th · Matric 10th · Punjab · Sindh · KPK · Federal</p>
             </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── Footer ── */}
       <footer className="border-t border-white/5 py-12 px-4 bg-black/20">
@@ -810,7 +803,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-1 text-xs text-lime font-bold"><Star className="w-3 h-3" /> تعلیم سب کے لیے</div>
           </div>
         </div>
-      </footer>
+      </section>
     </div>
   );
 }
