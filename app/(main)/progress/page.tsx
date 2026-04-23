@@ -3,8 +3,9 @@ import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Target, TrendingUp, Trophy, Clock } from "lucide-react";
-import { getScoreColor, getMasteryLabel, formatRelativeDate, cn } from "@/lib/utils";
-import type { UserProgress, Test } from "@/types/supabase";
+import { getScoreColor, getMasteryLabel, cn } from "@/lib/utils";
+import type { UserProgress } from "@/types/supabase";
+import TestHistoryClient, { type TestWithQuestions } from "@/components/progress/TestHistoryClient";
 
 export default async function ProgressPage() {
   const supabase = await createClient();
@@ -13,12 +14,12 @@ export default async function ProgressPage() {
 
   const [progressResult, testsResult, badgesResult] = await Promise.all([
     supabase.from("user_progress").select("*").eq("user_id", user.id).order("last_studied_at", { ascending: false }),
-    supabase.from("tests").select("*").eq("user_id", user.id).order("completed_at", { ascending: false }).limit(20),
+    supabase.from("tests").select("*, test_questions(*)").eq("user_id", user.id).order("completed_at", { ascending: false }).limit(20),
     supabase.from("user_badges").select("*, badges(*)").eq("user_id", user.id),
   ]);
 
   const progress = (progressResult.data || []) as UserProgress[];
-  const tests = (testsResult.data || []) as Test[];
+  const tests = (testsResult.data || []) as TestWithQuestions[];
   const badges = (badgesResult.data || []) as Array<{ id: string; earned_at: string; badges: { name: string; description: string; icon: string } | null }>;
 
   const masteredCount = progress.filter((p) => p.mastery_score >= 80).length;
@@ -108,32 +109,7 @@ export default async function ProgressPage() {
               <CardTitle className="text-base">Test History</CardTitle>
             </CardHeader>
             <CardContent>
-              {tests.length > 0 ? (
-                <div className="space-y-3 max-h-80 overflow-y-auto">
-                  {tests.map((test) => (
-                    <div key={test.id} className="flex items-center gap-3">
-                      <div className={cn(
-                        "w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0",
-                        (test.score || 0) >= 80 ? "bg-green-900/30 text-green-400"
-                          : (test.score || 0) >= 60 ? "bg-yellow-900/30 text-yellow-400"
-                          : "bg-red-900/30 text-red-400"
-                      )}>
-                        {test.score}%
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium truncate">{test.topic_name || "Practice Test"}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {test.correct_answers}/{test.total_questions} correct · {formatRelativeDate(test.completed_at)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-muted-foreground text-center py-6">
-                  No tests yet. Click &quot;Test Me&quot; in any chat session!
-                </p>
-              )}
+              <TestHistoryClient tests={tests} />
             </CardContent>
           </Card>
         </div>

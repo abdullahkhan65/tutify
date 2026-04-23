@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { buildSystemPrompt, buildExamPrompt, getGeminiModel } from "@/lib/gemini";
+import { buildSystemPrompt, buildExamPrompt } from "@/lib/gemini";
+import Groq from "groq-sdk";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,7 +28,7 @@ export async function POST(request: NextRequest) {
       .single();
     const profile = profileData as { board?: string; class_level?: string; subjects?: string[]; language_pref?: string; professor_personality?: string; plan?: string } | null;
 
-    // Rate limiting: free users get limited daily sessions
+    // Rate limiting: free users get limited daily messages
     if (profile?.plan === "free") {
       const today = new Date().toISOString().split("T")[0];
       const { count } = await supabase
@@ -43,24 +46,26 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const model = getGeminiModel("gemini-1.5-flash");
-
     // Exam mode: generate MCQs
     if (mode === "exam") {
       const { topic, subject, difficulty, count } = body;
       const examPrompt = buildExamPrompt(topic, subject, difficulty, count);
 
-      const result = await model.generateContent(examPrompt);
-      const text = result.response.text();
+      const completion = await groq.chat.completions.create({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: examPrompt }],
+        temperature: 0.5,
+        max_tokens: 2048,
+        response_format: { type: "json_object" },
+      });
 
-      // Extract JSON from response
+      const text = completion.choices[0]?.message?.content ?? "";
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       if (!jsonMatch) {
         return NextResponse.json({ error: "Failed to generate questions" }, { status: 500 });
       }
 
-      const parsed = JSON.parse(jsonMatch[0]);
-      return NextResponse.json(parsed);
+      return NextResponse.json(JSON.parse(jsonMatch[0]));
     }
 
     // Normal chat with streaming
@@ -73,26 +78,25 @@ export async function POST(request: NextRequest) {
       language: profile?.language_pref || "english",
     });
 
-    // Build conversation history for Gemini
-    const history = messages.slice(0, -1).map((msg: { role: string; content: string }) => ({
-      role: msg.role === "user" ? "user" : "model",
-      parts: [{ text: msg.content }],
-    }));
+    const conversationMessages = [
+      { role: "system" as const, content: systemPrompt },
+      ...messages.map((msg: { role: string; content: string }) => ({
+        role: msg.role === "user" ? "user" as const : "assistant" as const,
+        content: msg.content,
+      })),
+    ];
 
-    const lastMessage = messages[messages.length - 1];
-
-    const chat = model.startChat({
-      history: [
-        { role: "user", parts: [{ text: systemPrompt }] },
-        { role: "model", parts: [{ text: "Understood! I'm ready to be your dedicated Tutify professor. I'll teach step-by-step, use proper LaTeX formatting for math, create diagrams when helpful, and focus on helping you ace your board exam. What would you like to learn today?" }] },
-        ...history,
-      ],
+    const streamResult = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: conversationMessages,
+      temperature: 0.7,
+      max_tokens: 2048,
+      stream: true,
     });
-
-    const streamResult = await chat.sendMessageStream(lastMessage.content);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const db = supabase as any;
+    const lastMessage = messages[messages.length - 1];
 
     // Save user message to DB
     if (sessionId) {
@@ -111,10 +115,12 @@ export async function POST(request: NextRequest) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of streamResult.stream) {
-            const text = chunk.text();
-            fullResponse += text;
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+          for await (const chunk of streamResult) {
+            const text = chunk.choices[0]?.delta?.content || "";
+            if (text) {
+              fullResponse += text;
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+            }
           }
 
           // Save assistant message to DB
@@ -125,11 +131,11 @@ export async function POST(request: NextRequest) {
               role: "assistant",
               content: fullResponse,
             });
-            await db.rpc("increment_session_messages", { p_session_id: sessionId }).catch(() => {});
+            try { await db.rpc("increment_session_messages", { p_session_id: sessionId }); } catch {}
           }
 
           // Award XP for the session
-          await db.rpc("increment_user_xp", { p_user_id: user.id, p_amount: 5 }).catch(() => {});
+          try { await db.rpc("increment_user_xp", { p_user_id: user.id, p_amount: 5 }); } catch {};
 
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
           controller.close();

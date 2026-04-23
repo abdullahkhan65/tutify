@@ -94,7 +94,7 @@ export default function TopicsPage() {
                       {filteredTopics.map((topic) => (
                         <Link
                           key={topic.id}
-                          href={`/chat?topicId=${topic.id}&topic=${encodeURIComponent(topic.title)}&subject=${key}`}
+                          href={`/topics/${topic.id}`}
                         >
                           <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-border hover:border-purple-500/40 hover:bg-purple-900/10 transition-all group cursor-pointer">
                             <div className="w-8 h-8 rounded-lg bg-secondary border border-border flex items-center justify-center flex-shrink-0">

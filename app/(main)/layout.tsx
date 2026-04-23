@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Sidebar from "@/components/layout/Sidebar";
+import MobileNav from "@/components/layout/MobileNav";
 import type { Profile } from "@/types/supabase";
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
@@ -25,10 +26,13 @@ export default async function MainLayout({ children }: { children: React.ReactNo
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
-      <Sidebar profile={profile} />
-      <main className="flex-1 overflow-hidden flex flex-col min-w-0">
+      <div className="hidden md:flex flex-shrink-0">
+        <Sidebar profile={profile} />
+      </div>
+      <main className="flex-1 overflow-hidden flex flex-col min-w-0 pb-16 md:pb-0">
         {children}
       </main>
+      <MobileNav />
     </div>
   );
 }

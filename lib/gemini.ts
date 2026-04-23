@@ -142,7 +142,7 @@ Return ONLY valid JSON:
 }`;
 }
 
-export function getGeminiModel(modelName: string = "gemini-2.0-flash") {
+export function getGeminiModel(modelName: string = "gemini-2.0-flash-lite") {
   return genAI.getGenerativeModel({
     model: modelName,
     safetySettings: [
