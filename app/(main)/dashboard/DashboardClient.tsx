@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SubjectIcon } from "@/components/ui/SubjectIcon";
 import { CURRICULUM, SUBJECTS } from "@/lib/curriculum";
 import { getDaysUntilExam, formatRelativeDate, getScoreColor, cn } from "@/lib/utils";
 import type { Profile, Session, Test, UserProgress } from "@/types/supabase";
@@ -62,7 +63,7 @@ export default function DashboardClient({ profile, recentSessions, recentTests, 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold">
-              Assalam o Alaikum, {userName} 👋
+              Assalam o Alaikum, {userName}
             </h1>
             <p className="text-muted-foreground text-sm mt-0.5">
               {daysUntilExam !== null
@@ -190,7 +191,7 @@ export default function DashboardClient({ profile, recentSessions, recentTests, 
                             : "text-muted-foreground border border-border hover:text-foreground"
                         )}
                       >
-                        {subInfo.icon} {subInfo.label}
+                        <SubjectIcon subjectId={subInfo.id} className="text-purple-300" /> {subInfo.label}
                       </button>
                     );
                   })}

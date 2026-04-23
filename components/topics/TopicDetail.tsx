@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { MessageSquare, Target, BookOpen, CheckCircle2, Circle, ChevronRight, Trophy, Clock, BarChart2, ArrowLeft, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SubjectIcon } from "@/components/ui/SubjectIcon";
 import { cn, getScoreColor, getMasteryLabel, formatRelativeDate } from "@/lib/utils";
 import ExamMode from "@/components/chat/ExamMode";
 import type { CurriculumTopic, CurriculumChapter, CurriculumSubject } from "@/lib/curriculum";
@@ -110,10 +111,10 @@ export default function TopicDetail({ topic, chapter, subject, subjectKey, progr
           >
             <div className="flex items-start gap-4">
               <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 border"
+                className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 border"
                 style={{ background: `${subject.color}22`, borderColor: `${subject.color}44` }}
               >
-                {subject.icon}
+                <SubjectIcon subjectId={subject.slug} className="w-6 h-6" />
               </div>
               <div className="flex-1 min-w-0">
                 <h1 className="text-xl font-bold leading-tight">{topic.title}</h1>
@@ -232,7 +233,7 @@ export default function TopicDetail({ topic, chapter, subject, subjectKey, progr
 
               {checkedCount === topic.keyConcepts.length && topic.keyConcepts.length > 0 && (
                 <div className="mt-3 text-center text-xs text-green-400 font-medium">
-                  🎉 All concepts covered! Take the test to confirm your mastery.
+                  All concepts covered! Take the test to confirm your mastery.
                 </div>
               )}
             </motion.div>

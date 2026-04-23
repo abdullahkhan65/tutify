@@ -5,12 +5,15 @@ import Link from "next/link";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { BrandMark } from "@/components/brand/BrandMark";
 import {
   Brain, Zap, Trophy, BarChart3, BookOpen, MessageSquare,
   ArrowRight, CheckCircle2, Sparkles, Flame, Target, Users,
   Shield, Camera, GraduationCap, Heart, Calendar,
   ChevronDown, Rocket, Globe, Swords, Timer,
-  UserPlus, MessageCircle, ListChecks, Award, Wifi, Star
+  UserPlus, MessageCircle, ListChecks, Award, Wifi, Star,
+  Atom, Beaker, Sigma, Microscope, UserRound, UsersRound,
+  Medal, Hammer, ClipboardList, AlertTriangle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -58,6 +61,9 @@ const COMPETITORS = [
   { name: "Byju's", highlight: false, price: "Rs. 3,000+", bise: "✗", ai: "✗", photo: "✗", papers: "✗", exam: "Partial", urdu: "✗", parent: "✗" },
 ];
 
+const groupIcons = [Atom, Beaker, Sigma, Microscope];
+const focusRoomIcons = [Beaker, Sigma, Atom, Microscope];
+
 export default function LandingPage() {
   const [audience, setAudience] = useState<"student" | "parent">("student");
   const [openPhase, setOpenPhase] = useState(0);
@@ -70,11 +76,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 inset-x-0 z-50 border-b border-white/5 backdrop-blur-2xl bg-background/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-amber-400 flex items-center justify-center shadow-lg glow-amber">
-              <span className="text-black font-black text-lg">T</span>
-            </div>
-            <span className="text-xl font-black tracking-tight">Taleem</span>
-            <span className="hidden sm:block text-xs text-amber-400 font-bold tracking-widest uppercase ml-1 opacity-70">تعلیم</span>
+            <BrandMark />
           </div>
 
           <div className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
@@ -126,7 +128,10 @@ export default function LandingPage() {
                   className={cn("px-5 py-2 rounded-full text-sm font-semibold transition-all",
                     audience === a ? "bg-amber-400 text-black shadow-lg" : "text-muted-foreground hover:text-foreground"
                   )}>
-                  {a === "student" ? "👨‍🎓 Student" : "👨‍👩‍👧 Parent"}
+                  <span className="inline-flex items-center gap-2">
+                    {a === "student" ? <UserRound className="w-4 h-4" /> : <UsersRound className="w-4 h-4" />}
+                    {a === "student" ? "Student" : "Parent"}
+                  </span>
                 </button>
               ))}
             </div>
@@ -137,11 +142,11 @@ export default function LandingPage() {
               <motion.div key="s" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-400/10 text-amber-400 text-xs font-bold mb-8 uppercase tracking-widest">
                   <Sparkles className="w-3.5 h-3.5" />
-                  Pakistan ka #1 AI tutor — bilkul free shuru karo 🇵🇰
+                  Pakistan ka #1 AI tutor
                 </div>
                 <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] mb-8">
                   <span className="block">Board exam?</span>
-                  <span className="block text-amber-400">Sorted. 💀</span>
+                  <span className="block text-amber-400">Sorted.</span>
                 </h1>
                 <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
                   BISE syllabus. AI Ustaad. Har topic explain, har MCQ practice, results dekho grow karte.
@@ -252,7 +257,7 @@ export default function LandingPage() {
               </div>
               <div className="bg-amber-400/10 border border-amber-500/20 rounded-2xl p-3.5 flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-bold text-amber-400">Test karo? 🎯</div>
+                  <div className="text-sm font-bold text-amber-400 flex items-center gap-2"><Target className="w-4 h-4" /> Test karo?</div>
                   <div className="text-xs text-muted-foreground">5 BISE-style MCQs ready</div>
                 </div>
                 <Target className="w-5 h-5 text-amber-400" />
@@ -377,7 +382,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-1 p-1.5 rounded-2xl border border-white/10 bg-white/5 flex-wrap justify-center">
               {([
                 { key: "groups",      label: "Study Groups", icon: Users },
-                { key: "duels",       label: "Duels ⚔️",    icon: Swords },
+                { key: "duels",       label: "Duels",        icon: Swords },
                 { key: "focus",       label: "Focus Rooms",  icon: Timer },
                 { key: "leaderboard", label: "Leaderboard",  icon: Trophy },
               ] as const).map(({ key, label, icon: Icon }) => (
@@ -416,13 +421,17 @@ export default function LandingPage() {
                     <button className="text-xs text-amber-400 flex items-center gap-1 font-semibold"><UserPlus className="w-3.5 h-3.5" /> Create</button>
                   </div>
                   {[
-                    { emoji: "⚡", name: "FSc Physics 2026 — Punjab",     members: 847,  active: true,  joined: false },
-                    { emoji: "🧪", name: "Chemistry Matric 10 — Karachi", members: 423,  active: false, joined: true  },
-                    { emoji: "📐", name: "MDCAT Math Sprint 2026",         members: 1204, active: true,  joined: false },
-                    { emoji: "🔬", name: "Bio FSc2 Federal Board",         members: 318,  active: false, joined: false },
-                  ].map((g) => (
+                    { name: "FSc Physics 2026 — Punjab",     members: 847,  active: true,  joined: false },
+                    { name: "Chemistry Matric 10 — Karachi", members: 423,  active: false, joined: true  },
+                    { name: "MDCAT Math Sprint 2026",         members: 1204, active: true,  joined: false },
+                    { name: "Bio FSc2 Federal Board",         members: 318,  active: false, joined: false },
+                  ].map((g, index) => {
+                    const GroupIcon = groupIcons[index % groupIcons.length];
+                    return (
                     <div key={g.name} className={cn("flex items-center gap-3 p-3 rounded-xl border transition-all", g.joined ? "border-amber-500/30 bg-amber-900/10" : "border-white/8 bg-white/3 hover:border-blue-500/20")}>
-                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-xl flex-shrink-0">{g.emoji}</div>
+                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+                        <GroupIcon className="w-4 h-4 text-blue-300" />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-semibold truncate">{g.name}</div>
                         <div className="flex items-center gap-2 mt-0.5">
@@ -432,9 +441,9 @@ export default function LandingPage() {
                       </div>
                       <button className={cn("text-xs px-3 py-1.5 rounded-lg font-bold flex-shrink-0 border transition-all", g.joined ? "bg-amber-400/20 text-amber-400 border-amber-500/30" : "border-white/10 text-muted-foreground hover:border-blue-500/30 hover:text-foreground")}>{g.joined ? "Joined ✓" : "Join"}</button>
                     </div>
-                  ))}
+                  )})}
                   <div className="p-3 rounded-xl bg-white/5 border border-white/8">
-                    <div className="flex items-center justify-between mb-2"><span className="text-xs font-bold text-amber-400">⚡ FSc Physics — Group Milestone</span><span className="text-xs text-muted-foreground">Due May 15</span></div>
+                    <div className="flex items-center justify-between mb-2"><span className="text-xs font-bold text-amber-400 flex items-center gap-1.5"><Atom className="w-3 h-3" /> FSc Physics — Group Milestone</span><span className="text-xs text-muted-foreground">Due May 15</span></div>
                     <div className="text-xs mb-2">Complete Chapter 4: Work &amp; Energy</div>
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-1.5"><div className="h-full bg-amber-400 rounded-full" style={{ width: "68%" }} /></div>
                     <div className="flex gap-2 text-xs">
@@ -451,7 +460,7 @@ export default function LandingPage() {
             {commTab === "duels" && (
               <motion.div key="d" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 <div>
-                  <h3 className="text-3xl font-black mb-4">Dost ko challenge karo. <span className="text-amber-400">Prove it. ⚔️</span></h3>
+                  <h3 className="text-3xl font-black mb-4">Dost ko challenge karo. <span className="text-amber-400">Prove it.</span></h3>
                   <p className="text-muted-foreground mb-6 leading-relaxed">Kisi bhi topic pe 5-question duel bhejo. Dono same AI questions answer karo. Winner ko XP bonus. Loser ko &quot;Revenge?&quot; button. Sabse shareable cheez Taleem mein.</p>
                   {[
                     { icon: Swords, text: "Any topic, any subject — 5 questions" },
@@ -516,14 +525,16 @@ export default function LandingPage() {
                     <span className="text-amber-400 text-xs font-bold flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />49 studying</span>
                   </div>
                   {[
-                    { name: "Chemistry Sprint 🧪", students: 14, timer: "18:23" },
-                    { name: "Math Revision 📐",    students: 7,  timer: "04:12" },
-                    { name: "Physics Night 🌙",    students: 23, timer: "24:55" },
-                    { name: "Bio Diagrams 🔬",     students: 5,  timer: "11:30" },
-                  ].map((room) => (
+                    { name: "Chemistry Sprint", students: 14, timer: "18:23" },
+                    { name: "Math Revision",   students: 7,  timer: "04:12" },
+                    { name: "Physics Night",   students: 23, timer: "24:55" },
+                    { name: "Bio Diagrams",    students: 5,  timer: "11:30" },
+                  ].map((room, index) => {
+                    const RoomIcon = focusRoomIcons[index % focusRoomIcons.length];
+                    return (
                     <div key={room.name} className="flex items-center gap-3 p-3 rounded-xl border border-teal-500/20 bg-teal-900/5 hover:bg-teal-900/10 transition-colors">
                       <div className="relative flex-shrink-0">
-                        <div className="w-10 h-10 rounded-xl bg-teal-900/30 border border-teal-500/30 flex items-center justify-center"><Timer className="w-4 h-4 text-teal-400" /></div>
+                        <div className="w-10 h-10 rounded-xl bg-teal-900/30 border border-teal-500/30 flex items-center justify-center"><RoomIcon className="w-4 h-4 text-teal-400" /></div>
                         <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-amber-400 border-2 border-background animate-pulse" />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -532,7 +543,7 @@ export default function LandingPage() {
                       </div>
                       <button className="text-xs text-teal-400 border border-teal-500/30 bg-teal-900/20 px-3 py-1.5 rounded-lg hover:bg-teal-900/40 font-bold flex-shrink-0">Join</button>
                     </div>
-                  ))}
+                  )})}
                   <button className="w-full py-2.5 rounded-xl border border-dashed border-teal-500/30 text-teal-400 text-sm font-bold hover:bg-teal-900/10 transition-colors flex items-center justify-center gap-2"><Timer className="w-4 h-4" /> Create New Room</button>
                 </div>
               </motion.div>
@@ -565,14 +576,14 @@ export default function LandingPage() {
                   </div>
                   {[
                     { rank: 1, name: "Fatima S.", xp: 2840, streak: 21, you: false },
-                    { rank: 2, name: "You 🎯",    xp: 2510, streak: 14, you: true  },
+                    { rank: 2, name: "You",       xp: 2510, streak: 14, you: true  },
                     { rank: 3, name: "Ahmad K.",  xp: 2390, streak: 9,  you: false },
                     { rank: 4, name: "Sara A.",   xp: 1980, streak: 7,  you: false },
                     { rank: 5, name: "Usman R.",  xp: 1750, streak: 3,  you: false },
                   ].map((e) => (
                     <div key={e.rank} className={cn("flex items-center gap-3 p-3 rounded-xl border", e.you ? "border-amber-500/30 bg-amber-900/10" : "border-white/8 bg-white/3")}>
                       <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black flex-shrink-0", e.rank === 1 ? "bg-yellow-500/20 text-yellow-400" : e.rank === 2 ? "bg-slate-500/20 text-slate-300" : e.rank === 3 ? "bg-orange-900/30 text-orange-400" : "bg-white/5 text-muted-foreground")}>
-                        {e.rank === 1 ? "🥇" : e.rank === 2 ? "🥈" : e.rank === 3 ? "🥉" : e.rank}
+                        {e.rank === 1 ? <Trophy className="w-4 h-4" /> : e.rank === 2 ? <Medal className="w-4 h-4" /> : e.rank === 3 ? <Award className="w-4 h-4" /> : e.rank}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className={cn("text-sm font-bold", e.you && "text-amber-400")}>{e.name}</div>
@@ -628,7 +639,7 @@ export default function LandingPage() {
                 ))}
               </div>
             </div>
-            <div className="bg-orange-900/15 border border-orange-500/20 rounded-xl p-3"><div className="text-xs font-bold text-orange-400 mb-1">⚠️ Needs attention</div><div className="text-xs text-muted-foreground">Mathematics score dropped. Weak in Integration. 2 sessions on Chapter 3 recommended.</div></div>
+            <div className="bg-orange-900/15 border border-orange-500/20 rounded-xl p-3"><div className="text-xs font-bold text-orange-400 mb-1 flex items-center gap-1.5"><AlertTriangle className="w-3.5 h-3.5" /> Needs attention</div><div className="text-xs text-muted-foreground">Mathematics score dropped. Weak in Integration. 2 sessions on Chapter 3 recommended.</div></div>
             <div className="text-center"><Badge className="text-xs border bg-purple-900/30 text-purple-400 border-purple-500/30">Predicted Board Score: 73% → Target: 80%</Badge></div>
           </div>
         </div>
@@ -707,7 +718,7 @@ export default function LandingPage() {
                           <span className="text-xs text-muted-foreground">{phase.phase}</span>
                           <span className="font-black text-sm">{phase.title}</span>
                           <Badge className={cn("text-xs border", c.badge)}>
-                            {phase.status === "live" ? "🟢 Live" : phase.status === "building" ? "🔨 Building" : "📋 Planned"}
+                            {phase.status === "live" ? "Live" : phase.status === "building" ? "Building" : "Planned"}
                           </Badge>
                         </div>
                         <div className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5"><Calendar className="w-3 h-3" /> {phase.date}</div>
@@ -786,14 +797,18 @@ export default function LandingPage() {
           <div className="relative rounded-3xl border border-amber-500/20 bg-white/3 p-14 overflow-hidden">
             <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-64 h-64 bg-amber-400/8 rounded-full blur-3xl pointer-events-none" />
             <div className="relative">
-              <div className="text-7xl mb-5">🎓</div>
+              <div className="mb-5 flex justify-center">
+                <div className="flex h-20 w-20 items-center justify-center rounded-[2rem] border border-amber-500/20 bg-amber-400/10">
+                  <GraduationCap className="h-10 w-10 text-amber-400" />
+                </div>
+              </div>
               <h2 className="text-5xl sm:text-6xl font-black mb-5 leading-tight">
                 Kal se nahi.<br /><span className="text-amber-400">Aaj se.</span>
               </h2>
               <p className="text-muted-foreground text-lg mb-8 leading-relaxed">Roz 30 minute Taleem pe — aur board exam se pehle apna poora FSc syllabus 3 baar revise ho jaega. Bilkul free se shuru karo.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/signup">
-                  <Button size="lg" className="h-14 px-8 bg-amber-400 hover:bg-amber-500 text-black font-black text-base gap-2 rounded-2xl glow-amber"><Rocket className="w-5 h-5" /> Free mein shuru karo 🇵🇰</Button>
+                  <Button size="lg" className="h-14 px-8 bg-amber-400 hover:bg-amber-500 text-black font-black text-base gap-2 rounded-2xl glow-amber"><Rocket className="w-5 h-5" /> Free mein shuru karo</Button>
                 </Link>
                 <Link href="/login">
                   <Button variant="outline" size="lg" className="h-14 px-8 rounded-2xl border-white/10 bg-white/5 font-semibold">Pehle se account hai →</Button>
@@ -811,11 +826,9 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row items-start justify-between gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2.5 mb-3">
-                <div className="w-8 h-8 rounded-xl bg-amber-400 flex items-center justify-center glow-amber"><span className="text-black font-black text-base">T</span></div>
-                <span className="text-xl font-black">Taleem</span>
-                <span className="text-xs text-amber-400 font-bold tracking-widest uppercase opacity-70">تعلیم</span>
+                <BrandMark compact />
               </div>
-              <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">Pakistan ka AI-powered tutor — FSc, Matric, aur board exam prep ke liye. 🇵🇰</p>
+              <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">Pakistan ka AI-powered tutor — FSc, Matric, aur board exam prep ke liye.</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
               <div><div className="font-bold mb-3 text-xs uppercase tracking-wider">Product</div><div className="space-y-2 text-muted-foreground">{[["#features", "Features"], ["#roadmap", "Roadmap"], ["#pricing", "Pricing"]].map(([h, l]) => <a key={l} href={h} className="block hover:text-foreground">{l}</a>)}</div></div>
@@ -824,7 +837,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-muted-foreground">© 2026 Taleem. Built in Pakistan 🇵🇰 for Pakistani students.</p>
+            <p className="text-xs text-muted-foreground">© 2026 Taleem. Built in Pakistan for Pakistani students.</p>
             <div className="flex items-center gap-1 text-xs text-amber-400 font-bold"><Star className="w-3 h-3" /> تعلیم سب کے لیے</div>
           </div>
         </div>

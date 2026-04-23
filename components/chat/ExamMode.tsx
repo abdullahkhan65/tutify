@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
-import { CheckCircle2, XCircle, Trophy, Target, Clock, ArrowRight, RotateCcw, X } from "lucide-react";
+import { BookOpen, CheckCircle2, XCircle, Trophy, Target, Clock, ArrowRight, RotateCcw, X } from "lucide-react";
 import { cn, getScoreColor } from "@/lib/utils";
 
 interface MCQOption {
@@ -216,7 +216,11 @@ export default function ExamMode({ topicName, subjectSlug, onClose, onComplete }
                 className="p-6 space-y-5"
               >
                 <div className="text-center">
-                  <div className="text-4xl mb-3">🎯</div>
+                  <div className="mb-3 flex justify-center">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-teal-500/30 bg-teal-900/20">
+                      <Target className="h-7 w-7 text-teal-400" />
+                    </div>
+                  </div>
                   <h2 className="text-lg font-bold mb-1">Ready to test yourself?</h2>
                   <p className="text-sm text-muted-foreground">
                     5 BISE-style MCQs on <span className="text-foreground font-medium">{topicName}</span>
@@ -379,8 +383,16 @@ export default function ExamMode({ topicName, subjectSlug, onClose, onComplete }
                 animate={{ opacity: 1, scale: 1 }}
                 className="p-6 text-center space-y-4"
               >
-                <div className="text-5xl font-black">
-                  {finalScore >= 80 ? "🏆" : finalScore >= 60 ? "📚" : "💪"}
+                <div className="flex justify-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-3xl border border-purple-500/20 bg-purple-900/20">
+                    {finalScore >= 80 ? (
+                      <Trophy className="h-8 w-8 text-yellow-400" />
+                    ) : finalScore >= 60 ? (
+                      <BookOpen className="h-8 w-8 text-teal-400" />
+                    ) : (
+                      <Target className="h-8 w-8 text-orange-400" />
+                    )}
+                  </div>
                 </div>
                 <div>
                   <div className={cn("text-4xl font-black mb-1", getScoreColor(finalScore))}>

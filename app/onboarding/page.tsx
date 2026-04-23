@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { BrandMark } from "@/components/brand/BrandMark";
+import { SubjectIcon } from "@/components/ui/SubjectIcon";
 import { createClient } from "@/lib/supabase/client";
 import { BOARDS, CLASS_LEVELS, SUBJECTS } from "@/lib/curriculum";
 import { toast } from "sonner";
@@ -76,9 +78,8 @@ export default function OnboardingPage() {
 
       <div className="relative w-full max-w-lg">
         {/* Logo */}
-        <div className="flex items-center gap-2 justify-center mb-8">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold shadow-lg shadow-purple-900/50">T</div>
-          <span className="text-lg font-bold text-gradient-purple">Taleem</span>
+        <div className="flex justify-center mb-8">
+          <BrandMark compact />
         </div>
 
         {/* Progress bar */}
@@ -174,7 +175,9 @@ export default function OnboardingPage() {
                           : "border-border bg-secondary/50 hover:border-border/80"
                       )}
                     >
-                      <span className="text-xl">{s.icon}</span>
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-purple-500/20 bg-purple-900/20">
+                        <SubjectIcon subjectId={s.id} className="h-4.5 w-4.5 text-purple-300" />
+                      </div>
                       <div>
                         <div className="text-sm font-medium">{s.label}</div>
                       </div>

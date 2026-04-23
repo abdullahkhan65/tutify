@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { SubjectIcon } from "@/components/ui/SubjectIcon";
 import { toast } from "sonner";
 import { BOARDS, CLASS_LEVELS, SUBJECTS } from "@/lib/curriculum";
 import {
@@ -231,7 +232,7 @@ export default function SettingsPage() {
                             : "border-border bg-secondary/50 text-muted-foreground hover:border-border/80"
                         )}
                       >
-                        <span>{subject.icon}</span>
+                        <SubjectIcon subjectId={subject.id} className="text-purple-300" />
                         <span>{subject.label}</span>
                       </button>
                     ))}

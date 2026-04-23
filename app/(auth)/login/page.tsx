@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
@@ -47,8 +48,7 @@ export default function LoginPage() {
     >
       <div className="flex justify-center mb-8">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold shadow-lg shadow-purple-900/50">T</div>
-          <span className="text-xl font-bold text-gradient-purple">Taleem</span>
+          <BrandMark compact />
         </Link>
       </div>
 

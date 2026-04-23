@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Target, TrendingUp, Trophy, Clock } from "lucide-react";
+import { AlertTriangle, Award, Target, TrendingUp, Trophy, Clock } from "lucide-react";
 import { getScoreColor, getMasteryLabel, cn } from "@/lib/utils";
 import type { UserProgress } from "@/types/supabase";
 import TestHistoryClient, { type TestWithQuestions } from "@/components/progress/TestHistoryClient";
@@ -119,7 +119,8 @@ export default async function ProgressPage() {
           <Card className="border-orange-500/20 bg-orange-900/5">
             <CardHeader>
               <CardTitle className="text-base text-orange-400 flex items-center gap-2">
-                ⚠️ Weak Areas — Focus Here
+                <AlertTriangle className="w-4 h-4" />
+                Weak Areas — Focus Here
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -153,7 +154,11 @@ export default async function ProgressPage() {
                   const badge = ub.badges;
                   return (
                     <div key={ub.id} className="text-center p-3 rounded-xl border border-border bg-secondary/30">
-                      <div className="text-3xl mb-1">{badge?.icon || "🏆"}</div>
+                      <div className="mb-1 flex justify-center">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-yellow-500/20 bg-yellow-900/20">
+                          <Award className="h-6 w-6 text-yellow-400" />
+                        </div>
+                      </div>
                       <div className="text-xs font-medium">{badge?.name}</div>
                       <div className="text-xs text-muted-foreground mt-0.5">{badge?.description}</div>
                     </div>

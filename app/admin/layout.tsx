@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { LayoutDashboard, Users, BookOpen, BarChart3, Settings, Flag, MessageSquare } from "lucide-react";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -32,9 +33,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="flex h-screen bg-background overflow-hidden">
       <aside className="w-56 flex-shrink-0 bg-card/30 border-r border-border/50 flex flex-col">
         <div className="flex items-center gap-2.5 px-4 py-4 border-b border-border/50">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold text-sm">T</div>
           <div>
-            <div className="font-bold text-sm text-gradient-purple">Taleem</div>
+            <BrandMark compact />
             <div className="text-xs text-muted-foreground">Admin Panel</div>
           </div>
         </div>

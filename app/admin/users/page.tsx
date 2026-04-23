@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
 import { formatRelativeDate } from "@/lib/utils";
+import { Flame } from "lucide-react";
 import type { Profile } from "@/types/supabase";
 
 export default async function AdminUsersPage() {
@@ -63,7 +64,10 @@ export default async function AdminUsersPage() {
                     <div className="text-xs">Level {user.level}</div>
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">
-                    {user.streak_count} 🔥
+                    <span className="inline-flex items-center gap-1.5">
+                      {user.streak_count}
+                      <Flame className="w-3.5 h-3.5 text-orange-400" />
+                    </span>
                   </td>
                   <td className="px-4 py-3 text-muted-foreground text-xs">
                     {formatRelativeDate(user.created_at)}

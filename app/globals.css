@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 @import 'katex/dist/katex.min.css';
 
 @tailwind base;
@@ -42,7 +41,7 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-sans), system-ui, sans-serif;
   }
   ::-webkit-scrollbar {
     width: 6px;
@@ -81,6 +80,9 @@
   }
   .text-gradient-indigo {
     @apply bg-gradient-to-r from-indigo-300 to-violet-400 bg-clip-text text-transparent;
+  }
+  .font-urdu-logo {
+    font-family: var(--font-urdu), serif;
   }
   .border-gradient {
     background: linear-gradient(var(--background), var(--background)) padding-box,

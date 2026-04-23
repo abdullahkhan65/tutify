@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CURRICULUM, SUBJECTS } from "@/lib/curriculum";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { SubjectIcon } from "@/components/ui/SubjectIcon";
 import { cn } from "@/lib/utils";
 import { Search, ChevronRight, Clock, BookOpen } from "lucide-react";
 
@@ -60,7 +61,7 @@ export default function TopicsPage() {
                   activeSubject === s.id ? "border-purple-500 bg-purple-900/20 text-purple-300" : "border-border text-muted-foreground hover:text-foreground"
                 )}
               >
-                {s.icon} {s.label}
+                <SubjectIcon subjectId={s.id} className="text-purple-300" /> {s.label}
               </button>
             ))}
           </div>
@@ -71,7 +72,9 @@ export default function TopicsPage() {
           {filteredEntries.map(([key, subject]) => (
             <div key={key}>
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">{subject.icon}</span>
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-purple-500/20 bg-purple-900/20">
+                  <SubjectIcon subjectId={subject.slug} className="h-4.5 w-4.5 text-purple-300" />
+                </div>
                 <h2 className="text-lg font-bold">{subject.name}</h2>
                 <Badge variant="secondary" className="text-xs ml-auto">
                   {subject.chapters.reduce((sum, c) => sum + c.topics.length, 0)} topics
