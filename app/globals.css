@@ -73,6 +73,16 @@
   .glow-teal {
     box-shadow: 0 0 20px rgba(13, 148, 136, 0.4);
   }
+  .glow-lime {
+    box-shadow: 0 0 30px rgba(185, 255, 70, 0.35), 0 0 60px rgba(185, 255, 70, 0.15);
+  }
+  .text-lime {
+    color: #c9ff47;
+  }
+  .bg-lime-glow {
+    background: rgba(185, 255, 70, 0.12);
+    border-color: rgba(185, 255, 70, 0.25);
+  }
   .text-gradient {
     @apply bg-gradient-to-r from-purple-400 via-violet-400 to-teal-400 bg-clip-text text-transparent;
   }

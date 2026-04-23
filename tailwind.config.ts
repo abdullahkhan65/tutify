@@ -61,6 +61,11 @@ const config: Config = {
           500: "#14b8a6",
           600: "#0d9488",
         },
+        lime: {
+          400: "#c9ff47",
+          500: "#b5f03a",
+          600: "#96d428",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -77,11 +82,21 @@ const config: Config = {
         "glow": "glow 2s ease-in-out infinite alternate",
         "gradient": "gradient 8s ease infinite",
         "typing": "typing 1.2s steps(3) infinite",
+        "marquee": "marquee 30s linear infinite",
+        "marquee-reverse": "marquee-reverse 30s linear infinite",
       },
       keyframes: {
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-8px)" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "marquee-reverse": {
+          "0%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0%)" },
         },
         glow: {
           "0%": { boxShadow: "0 0 20px rgba(124, 58, 237, 0.3)" },

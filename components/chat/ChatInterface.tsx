@@ -75,7 +75,7 @@ export default function ChatInterface({ topicId, topicName, subjectSlug, onExamM
       const welcome: Message = {
         id: "welcome",
         role: "assistant",
-        content: `**Assalam o Alaikum!** 👋 I'm your Tutify professor. Today we're studying **${topicName}**.\n\nI'll explain everything step-by-step, show you the math clearly, and make sure you're ready for your board exam. What aspect would you like to start with, or shall I give you a complete overview?`,
+        content: `**Assalam o Alaikum!** 👋 I'm your Taleem professor. Today we're studying **${topicName}**.\n\nI'll explain everything step-by-step, show you the math clearly, and make sure you're ready for your board exam. What aspect would you like to start with, or shall I give you a complete overview?`,
       };
       setMessages([welcome]);
       setLatestAIContent(welcome.content);
@@ -286,7 +286,7 @@ export default function ChatInterface({ topicId, topicName, subjectSlug, onExamM
           </div>
           <div className="flex-1 min-w-0">
             <div className="font-semibold text-sm truncate">
-              {topicName || "Tutify Professor"}
+              {topicName || "Taleem Professor"}
             </div>
             <div className="flex items-center gap-1.5 mt-0.5">
               <div className={cn("w-1.5 h-1.5 rounded-full", isStreaming ? "bg-purple-400 animate-pulse" : "bg-green-400")} />

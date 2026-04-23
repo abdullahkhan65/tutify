@@ -48,7 +48,7 @@ export default function LoginPage() {
       <div className="flex justify-center mb-8">
         <Link href="/" className="flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold shadow-lg shadow-purple-900/50">T</div>
-          <span className="text-xl font-bold text-gradient-purple">Tutify</span>
+          <span className="text-xl font-bold text-gradient-purple">Taleem</span>
         </Link>
       </div>
 
