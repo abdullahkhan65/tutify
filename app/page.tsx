@@ -9,8 +9,9 @@ import {
   Brain, Zap, Trophy, BarChart3, BookOpen, MessageSquare,
   ChevronRight, Star, ArrowRight, CheckCircle2, Sparkles,
   Flame, Target, Users, Shield, Camera, Clock, TrendingUp,
-  XCircle, Minus, GraduationCap, Heart, MapPin, Calendar,
-  ChevronDown, Play, Lock, Rocket, Globe
+  GraduationCap, Heart, MapPin, Calendar,
+  ChevronDown, Play, Lock, Rocket, Globe, Swords, Timer,
+  UserPlus, MessageCircle, ListChecks, Award, Wifi
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -51,6 +52,10 @@ const FEATURES_LIVE = [
   { label: "XP, levels & streaks", live: true, icon: Flame },
   { label: "Mobile-first responsive design", live: true, icon: Globe },
   { label: "Bilingual (Urdu + English)", live: true, icon: Globe },
+  { label: "Study Groups & Circles", live: false, icon: Users },
+  { label: "Challenge / Duel Mode ⚔️", live: false, icon: Swords },
+  { label: "Focus Rooms (virtual co-study)", live: false, icon: Timer },
+  { label: "Community Q&A Board", live: false, icon: MessageCircle },
   { label: "Photo Doubt Solver", live: false, icon: Camera },
   { label: "Past Paper Mode (2015–2024)", live: false, icon: BookOpen },
   { label: "MDCAT / ECAT Prep", live: false, icon: GraduationCap },
@@ -140,6 +145,14 @@ const ROADMAP = [
   },
   {
     phase: "Phase 3",
+    title: "Study Community",
+    date: "Jun–Jul 2026",
+    status: "planned" as const,
+    color: "blue",
+    items: ["Study Groups & Circles", "Challenge / Duel Mode ⚔️", "Focus Rooms (virtual co-study)", "Community Q&A board", "Shared milestones & group to-dos", "Social leaderboard + student profiles"],
+  },
+  {
+    phase: "Phase 4",
     title: "AI Intelligence Layer",
     date: "Jul–Aug 2026",
     status: "planned" as const,
@@ -147,15 +160,15 @@ const ROADMAP = [
     items: ["AI Study Planner (day-by-day)", "Predicted Board Score", "AI Answer Grader (long questions)", "Exam Countdown Sprint Mode", "AI Revision Notes Generator"],
   },
   {
-    phase: "Phase 4",
+    phase: "Phase 5",
     title: "Growth & Parents",
     date: "Sep–Oct 2026",
     status: "planned" as const,
     color: "orange",
-    items: ["Parent Dashboard + weekly reports", "WhatsApp Bot", "School & Academy Portal", "Collaborative Study Rooms", "Flashcard system + Leaderboard"],
+    items: ["Parent Dashboard + weekly reports", "WhatsApp Bot", "School & Academy Portal", "Flashcard system + Leaderboard"],
   },
   {
-    phase: "Phase 5",
+    phase: "Phase 6",
     title: "Platform",
     date: "Dec 2026",
     status: "planned" as const,
@@ -168,6 +181,7 @@ function RoadmapCard({ phase, onToggle, isOpen }: { phase: typeof ROADMAP[0]; on
   const colorMap = {
     green: { badge: "bg-green-900/30 border-green-500/30 text-green-400", dot: "bg-green-400", line: "border-green-500/30" },
     purple: { badge: "bg-purple-900/30 border-purple-500/30 text-purple-400", dot: "bg-purple-400", line: "border-purple-500/30" },
+    blue: { badge: "bg-blue-900/30 border-blue-500/30 text-blue-400", dot: "bg-blue-400", line: "border-blue-500/30" },
     teal: { badge: "bg-teal-900/30 border-teal-500/30 text-teal-400", dot: "bg-teal-400", line: "border-teal-500/30" },
     orange: { badge: "bg-orange-900/30 border-orange-500/30 text-orange-400", dot: "bg-orange-400", line: "border-orange-500/30" },
     pink: { badge: "bg-pink-900/30 border-pink-500/30 text-pink-400", dot: "bg-pink-400", line: "border-pink-500/30" },
@@ -229,6 +243,7 @@ function CompetitorCell({ value }: { value: string }) {
 export default function LandingPage() {
   const [audience, setAudience] = useState<"student" | "parent">("student");
   const [openPhase, setOpenPhase] = useState<number>(0);
+  const [commTab, setCommTab] = useState<"groups" | "duels" | "focus" | "leaderboard">("groups");
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -243,6 +258,7 @@ export default function LandingPage() {
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             <a href="#whats-built" className="hover:text-foreground transition-colors">What's Live</a>
+            <a href="#community" className="hover:text-foreground transition-colors">Community</a>
             <a href="#for-parents" className="hover:text-foreground transition-colors">For Parents</a>
             <a href="#roadmap" className="hover:text-foreground transition-colors">Roadmap</a>
             <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
@@ -651,6 +667,384 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── Community Section ── */}
+      <section className="py-24 px-4 bg-gradient-to-b from-transparent via-blue-900/4 to-transparent" id="community">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <Badge className="mb-4 bg-blue-900/30 border-blue-500/30 text-blue-400 border">Study Community</Badge>
+            <h2 className="text-4xl font-bold mb-4">
+              Study better together. <span className="text-gradient">Never fall behind alone.</span>
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Join study groups, challenge friends to duels, hold each other accountable in focus rooms,
+              and climb leaderboards together. Social studying isn&apos;t cheating — it&apos;s the only way top scorers do it.
+            </p>
+          </div>
+
+          {/* Tab bar */}
+          <div className="flex justify-center mb-10">
+            <div className="flex items-center gap-1 p-1 rounded-2xl border border-border bg-card/60 backdrop-blur flex-wrap justify-center">
+              {([
+                { key: "groups", label: "Study Groups", icon: Users },
+                { key: "duels", label: "Challenges", icon: Swords },
+                { key: "focus", label: "Focus Rooms", icon: Timer },
+                { key: "leaderboard", label: "Leaderboard", icon: Trophy },
+              ] as const).map(({ key, label, icon: Icon }) => (
+                <button
+                  key={key}
+                  onClick={() => setCommTab(key)}
+                  className={cn(
+                    "flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all",
+                    commTab === key
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-900/30"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="hidden sm:inline">{label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tab panels */}
+          <AnimatePresence mode="wait">
+
+            {/* ── Study Groups ── */}
+            {commTab === "groups" && (
+              <motion.div key="groups" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                  <h3 className="text-2xl font-bold mb-3">Find your study tribe</h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    Join public groups by board, class, and subject — or create a private circle for your school friends.
+                    Share milestones, track who&apos;s ahead, and get AI-generated group study plans.
+                  </p>
+                  <div className="space-y-3 mb-6">
+                    {[
+                      { icon: Users, text: "Browse public groups by board & subject" },
+                      { icon: ListChecks, text: "Shared milestones — group progress bar" },
+                      { icon: Brain, text: "AI group insight: weakest topic this week" },
+                      { icon: MessageCircle, text: "Group feed: achievements, announcements" },
+                    ].map(({ icon: Icon, text }) => (
+                      <div key={text} className="flex items-center gap-3 text-sm">
+                        <div className="w-8 h-8 rounded-lg bg-blue-900/30 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-blue-400" />
+                        </div>
+                        {text}
+                      </div>
+                    ))}
+                  </div>
+                  <Badge className="bg-purple-900/30 border-purple-500/30 text-purple-400 border text-xs">Coming Jun 2026</Badge>
+                </div>
+
+                {/* Mock group UI */}
+                <div className="glass-strong rounded-2xl border border-blue-500/20 p-5 space-y-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-semibold">Discover Groups</span>
+                    <button className="text-xs text-blue-400 flex items-center gap-1"><UserPlus className="w-3.5 h-3.5" /> Create</button>
+                  </div>
+                  {[
+                    { emoji: "⚡", name: "FSc Physics 2026 — Punjab", members: 847, subject: "Physics", active: true, joined: false },
+                    { emoji: "🧪", name: "Chemistry Matric 10 — Karachi", members: 423, subject: "Chemistry", active: false, joined: true },
+                    { emoji: "📐", name: "MDCAT Math Sprint 2026", members: 1204, subject: "Math", active: true, joined: false },
+                    { emoji: "🔬", name: "Bio FSc2 Federal Board", members: 318, subject: "Biology", active: false, joined: false },
+                  ].map((g) => (
+                    <div key={g.name} className={cn("flex items-center gap-3 p-3 rounded-xl border transition-all", g.joined ? "border-blue-500/30 bg-blue-900/10" : "border-border/50 bg-card/30 hover:border-blue-500/20")}>
+                      <div className="w-10 h-10 rounded-xl bg-secondary border border-border flex items-center justify-center text-xl flex-shrink-0">{g.emoji}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium truncate">{g.name}</div>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-xs text-muted-foreground">{g.members.toLocaleString()} members</span>
+                          {g.active && <span className="flex items-center gap-1 text-xs text-green-400"><span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />Active</span>}
+                        </div>
+                      </div>
+                      <button className={cn("text-xs px-3 py-1.5 rounded-lg font-medium flex-shrink-0", g.joined ? "bg-blue-900/30 text-blue-400 border border-blue-500/30" : "bg-secondary border border-border hover:border-blue-500/30 text-muted-foreground")}>
+                        {g.joined ? "Joined ✓" : "Join"}
+                      </button>
+                    </div>
+                  ))}
+
+                  {/* Group milestone mock */}
+                  <div className="mt-2 p-3 rounded-xl bg-card/50 border border-border/50">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-medium text-blue-400">⚡ FSc Physics — Group Milestone</span>
+                      <span className="text-xs text-muted-foreground">Due May 15</span>
+                    </div>
+                    <div className="text-xs mb-2">Complete Chapter 4: Work &amp; Energy</div>
+                    <div className="h-1.5 bg-secondary rounded-full overflow-hidden mb-1.5">
+                      <div className="h-full bg-blue-500 rounded-full" style={{ width: "68%" }} />
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <span className="text-green-400">✓ Ahmad</span>
+                      <span className="text-green-400">✓ Fatima</span>
+                      <span className="text-yellow-400">⏳ Zainab</span>
+                      <span className="text-muted-foreground">+4 more</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── Challenges / Duels ── */}
+            {commTab === "duels" && (
+              <motion.div key="duels" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                  <h3 className="text-2xl font-bold mb-3">Challenge your friends. <span className="text-gradient">Prove who's smarter.</span></h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    Send a 5-question duel on any topic. Both of you answer the same AI-generated questions.
+                    Winner gets XP. Loser gets a "Revenge?" button. The most shareable moment on Tutify.
+                  </p>
+                  <div className="space-y-3 mb-6">
+                    {[
+                      { icon: Swords, text: "Any topic, any subject — 5 questions" },
+                      { icon: Clock, text: "Live score comparison after each question" },
+                      { icon: Trophy, text: "Winner gets XP bonus + bragging rights" },
+                      { icon: Flame, text: "Head-to-head record vs each friend" },
+                    ].map(({ icon: Icon, text }) => (
+                      <div key={text} className="flex items-center gap-3 text-sm">
+                        <div className="w-8 h-8 rounded-lg bg-orange-900/30 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-orange-400" />
+                        </div>
+                        {text}
+                      </div>
+                    ))}
+                  </div>
+                  <Badge className="bg-purple-900/30 border-purple-500/30 text-purple-400 border text-xs">Coming Jun 2026</Badge>
+                </div>
+
+                {/* Mock duel UI */}
+                <div className="glass-strong rounded-2xl border border-orange-500/20 p-5 space-y-4">
+                  <div className="text-sm font-semibold flex items-center gap-2">
+                    <Swords className="w-4 h-4 text-orange-400" /> Challenge Arena
+                  </div>
+
+                  {/* Active challenge */}
+                  <div className="p-4 rounded-xl border border-orange-500/30 bg-orange-900/10">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xs text-orange-400 font-semibold flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />LIVE DUEL</span>
+                      <span className="text-xs text-muted-foreground">· Physics — Newton's Laws</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 mb-3">
+                      <div className="text-center p-3 bg-purple-900/20 rounded-xl border border-purple-500/20">
+                        <div className="text-2xl font-black text-purple-400">80%</div>
+                        <div className="text-xs text-muted-foreground mt-1">You</div>
+                        <div className="text-xs text-green-400 mt-1">↑ Winning</div>
+                      </div>
+                      <div className="text-center p-3 bg-secondary rounded-xl border border-border">
+                        <div className="text-2xl font-black text-foreground/60">60%</div>
+                        <div className="text-xs text-muted-foreground mt-1">Ahmad K.</div>
+                        <div className="text-xs text-red-400 mt-1">Q4 of 5...</div>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 justify-center">
+                      {[true, true, false, null, null].map((r, i) => (
+                        <div key={i} className={cn("w-7 h-7 rounded-lg border text-xs flex items-center justify-center font-bold",
+                          r === true ? "bg-green-900/30 border-green-500/30 text-green-400" :
+                          r === false ? "bg-red-900/30 border-red-500/30 text-red-400" :
+                          "bg-secondary border-border text-muted-foreground"
+                        )}>
+                          {r === true ? "✓" : r === false ? "✗" : i + 1}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Past duels */}
+                  <div className="space-y-2">
+                    <div className="text-xs text-muted-foreground font-medium">Recent Duels</div>
+                    {[
+                      { opponent: "Fatima S.", topic: "Thermodynamics", you: 100, them: 80, won: true },
+                      { opponent: "Usman R.", topic: "Waves & Sound", you: 60, them: 80, won: false },
+                      { opponent: "Sara A.", topic: "Optics", you: 80, them: 80, won: false },
+                    ].map((d) => (
+                      <div key={d.opponent} className="flex items-center gap-3 p-2.5 rounded-xl border border-border/50 bg-card/30 text-sm">
+                        <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0",
+                          d.won ? "bg-green-900/30 text-green-400" : "bg-red-900/30 text-red-400"
+                        )}>{d.won ? "W" : "L"}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-medium truncate">vs {d.opponent}</div>
+                          <div className="text-xs text-muted-foreground">{d.topic}</div>
+                        </div>
+                        <div className="text-xs font-semibold flex-shrink-0">{d.you}% <span className="text-muted-foreground font-normal">vs</span> {d.them}%</div>
+                        <button className="text-xs text-orange-400 hover:underline flex-shrink-0">Rematch</button>
+                      </div>
+                    ))}
+                  </div>
+                  <button className="w-full py-2.5 rounded-xl border border-orange-500/30 bg-orange-900/10 text-orange-400 text-sm font-medium hover:bg-orange-900/20 transition-colors flex items-center justify-center gap-2">
+                    <Swords className="w-4 h-4" /> Challenge a Friend
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── Focus Rooms ── */}
+            {commTab === "focus" && (
+              <motion.div key="focus" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                  <h3 className="text-2xl font-bold mb-3">Study together. <span className="text-gradient">Even when alone.</span></h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    Join a live focus room and study alongside other students in silence. The Pomodoro timer keeps
+                    everyone accountable. When it ends, share what you covered — logged automatically to your progress.
+                  </p>
+                  <div className="space-y-3 mb-6">
+                    {[
+                      { icon: Wifi, text: "Live participant count — 'You're not alone'" },
+                      { icon: Timer, text: "Pomodoro timer: 25 min focus, 5 min break" },
+                      { icon: MessageCircle, text: "No chat during focus — pure accountability" },
+                      { icon: CheckCircle2, text: "Post-session check-in auto-logged to progress" },
+                    ].map(({ icon: Icon, text }) => (
+                      <div key={text} className="flex items-center gap-3 text-sm">
+                        <div className="w-8 h-8 rounded-lg bg-teal-900/30 border border-teal-500/20 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-teal-400" />
+                        </div>
+                        {text}
+                      </div>
+                    ))}
+                  </div>
+                  <Badge className="bg-purple-900/30 border-purple-500/30 text-purple-400 border text-xs">Coming Jul 2026</Badge>
+                </div>
+
+                {/* Mock focus rooms UI */}
+                <div className="glass-strong rounded-2xl border border-teal-500/20 p-5 space-y-3">
+                  <div className="text-sm font-semibold flex items-center gap-2">
+                    <Timer className="w-4 h-4 text-teal-400" /> Focus Rooms — Live Now
+                  </div>
+                  {[
+                    { name: "Chemistry Sprint 🧪", students: 14, timer: "18:23", subject: "Chemistry", intensity: "high" },
+                    { name: "Math Revision 📐", students: 7, timer: "04:12", subject: "Mathematics", intensity: "medium" },
+                    { name: "Physics Night 🌙", students: 23, timer: "24:55", subject: "Physics", intensity: "high" },
+                    { name: "Bio Diagrams 🔬", students: 5, timer: "11:30", subject: "Biology", intensity: "low" },
+                  ].map((room) => (
+                    <div key={room.name} className="flex items-center gap-3 p-3 rounded-xl border border-teal-500/20 bg-teal-900/5 hover:bg-teal-900/10 transition-colors">
+                      <div className="relative flex-shrink-0">
+                        <div className="w-10 h-10 rounded-xl bg-teal-900/30 border border-teal-500/30 flex items-center justify-center">
+                          <Timer className="w-4 h-4 text-teal-400" />
+                        </div>
+                        <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-green-400 border-2 border-background animate-pulse" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium truncate">{room.name}</div>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-xs text-teal-400 font-mono">{room.timer} left</span>
+                          <span className="text-xs text-muted-foreground">{room.students} studying</span>
+                        </div>
+                      </div>
+                      <button className="text-xs text-teal-400 border border-teal-500/30 bg-teal-900/20 px-3 py-1.5 rounded-lg hover:bg-teal-900/40 transition-colors flex-shrink-0">
+                        Join
+                      </button>
+                    </div>
+                  ))}
+                  <button className="w-full py-2.5 rounded-xl border border-dashed border-teal-500/30 text-teal-400 text-sm font-medium hover:bg-teal-900/10 transition-colors flex items-center justify-center gap-2">
+                    <Timer className="w-4 h-4" /> Create New Room
+                  </button>
+                  <div className="text-center text-xs text-muted-foreground pt-1">
+                    <span className="text-teal-400 font-semibold">49 students</span> studying on Tutify right now
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ── Leaderboard ── */}
+            {commTab === "leaderboard" && (
+              <motion.div key="leaderboard" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                  <h3 className="text-2xl font-bold mb-3">Know where you stand. <span className="text-gradient">Then climb higher.</span></h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    Weekly XP leaderboard within your friend group, school, city, board, and nationally.
+                    Subject-specific rankings. Seasonal trophies. The board exam is competitive — practice being competitive.
+                  </p>
+                  <div className="space-y-3 mb-6">
+                    {[
+                      { icon: Users, text: "Friend group, school, city, national rankings" },
+                      { icon: BookOpen, text: "Subject-specific: Top Physics scorer this week" },
+                      { icon: Award, text: "Seasonal trophies: Pre-Board Sprint Champion" },
+                      { icon: Flame, text: "Streak badges visible on public profiles" },
+                    ].map(({ icon: Icon, text }) => (
+                      <div key={text} className="flex items-center gap-3 text-sm">
+                        <div className="w-8 h-8 rounded-lg bg-yellow-900/30 border border-yellow-500/20 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-yellow-400" />
+                        </div>
+                        {text}
+                      </div>
+                    ))}
+                  </div>
+                  <Badge className="bg-purple-900/30 border-purple-500/30 text-purple-400 border text-xs">Coming Jul 2026</Badge>
+                </div>
+
+                {/* Mock leaderboard UI */}
+                <div className="glass-strong rounded-2xl border border-yellow-500/20 p-5 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm font-semibold flex items-center gap-2">
+                      <Trophy className="w-4 h-4 text-yellow-400" /> Weekly Leaderboard
+                    </div>
+                    <div className="flex gap-1 text-xs">
+                      {["Friends", "School", "Punjab"].map((scope, i) => (
+                        <button key={scope} className={cn("px-2.5 py-1 rounded-lg", i === 0 ? "bg-yellow-900/30 text-yellow-400 border border-yellow-500/30" : "text-muted-foreground hover:text-foreground")}>
+                          {scope}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    {[
+                      { rank: 1, name: "Fatima S.", xp: 2840, subject: "Chemistry", streak: 21, you: false },
+                      { rank: 2, name: "You 🎯", xp: 2510, subject: "Physics", streak: 14, you: true },
+                      { rank: 3, name: "Ahmad K.", xp: 2390, subject: "Math", streak: 9, you: false },
+                      { rank: 4, name: "Sara A.", xp: 1980, subject: "Biology", streak: 7, you: false },
+                      { rank: 5, name: "Usman R.", xp: 1750, subject: "Physics", streak: 3, you: false },
+                    ].map((entry) => (
+                      <div key={entry.rank} className={cn("flex items-center gap-3 p-3 rounded-xl border",
+                        entry.you ? "border-purple-500/40 bg-purple-900/15" : "border-border/50 bg-card/20"
+                      )}>
+                        <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black flex-shrink-0",
+                          entry.rank === 1 ? "bg-yellow-500/20 text-yellow-400" :
+                          entry.rank === 2 ? "bg-slate-500/20 text-slate-400" :
+                          entry.rank === 3 ? "bg-orange-900/30 text-orange-400" :
+                          "bg-secondary text-muted-foreground"
+                        )}>
+                          {entry.rank === 1 ? "🥇" : entry.rank === 2 ? "🥈" : entry.rank === 3 ? "🥉" : entry.rank}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className={cn("text-sm font-medium", entry.you && "text-purple-300")}>{entry.name}</div>
+                          <div className="text-xs text-muted-foreground flex items-center gap-2">
+                            <span>{entry.subject}</span>
+                            <span className="text-orange-400 flex items-center gap-0.5"><Flame className="w-3 h-3" />{entry.streak}d</span>
+                          </div>
+                        </div>
+                        <div className="text-sm font-bold text-yellow-400 flex-shrink-0">{entry.xp.toLocaleString()} XP</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-center text-xs text-muted-foreground pt-1">
+                    Resets every <span className="text-foreground">Monday at midnight</span> · Opt-in, privacy-respecting
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Community CTA strip */}
+          <motion.div
+            className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            {[
+              { emoji: "⚔️", title: "1 duel per day", desc: "keeps the forgetting away", color: "border-orange-500/20 bg-orange-900/5" },
+              { emoji: "🔥", title: "Groups stay accountable", desc: "when milestones are public", color: "border-blue-500/20 bg-blue-900/5" },
+              { emoji: "🏆", title: "Top scorers study together", desc: "not alone", color: "border-yellow-500/20 bg-yellow-900/5" },
+            ].map(({ emoji, title, desc, color }) => (
+              <div key={title} className={cn("rounded-2xl border p-5 text-center", color)}>
+                <div className="text-3xl mb-2">{emoji}</div>
+                <div className="font-semibold text-sm">{title}</div>
+                <div className="text-xs text-muted-foreground mt-1">{desc}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* Competition comparison */}
       <section className="py-24 px-4 bg-gradient-to-b from-transparent via-card/30 to-transparent">
         <div className="max-w-5xl mx-auto">
@@ -917,6 +1311,7 @@ export default function LandingPage() {
                 <div className="space-y-2 text-muted-foreground">
                   <a href="#for-parents" className="block hover:text-foreground">For Parents</a>
                   <Link href="/signup" className="block hover:text-foreground">For Students</Link>
+                  <a href="#community" className="block hover:text-foreground">Community</a>
                   <a href="mailto:hello@tutify.pk" className="block hover:text-foreground">Schools</a>
                 </div>
               </div>
