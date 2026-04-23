@@ -80,9 +80,9 @@ function AnimatedCounter({
 }
 
 const STUDENT_SIGNALS = [
-  "Koi boring lecture nahi. Pucho, interrupt karo, dobara pucho, full scene halal.",
-  "Board-style questions right after learning. Lock in karo, phir thora flex bhi banta hai.",
-  "Weak-topic rescue before boards tumhari tension ka free fire start karein.",
+  "No boring lectures. Ask, interrupt, retry, no weird judgment.",
+  "Board-style questions right after learning. Lock in, then flex.",
+  "Weak-topic rescue before the exam starts speedrunning your stress.",
 ];
 
 const PARENT_SIGNALS = [
@@ -120,33 +120,20 @@ const LIVE_MODULES = [
 
 const STUDENT_ACTIONS = [
   {
-    title: "Yaar Is Topic Ko Bachao",
-    subtitle: "Weak topic pakra gaya. Ab isko seedha karte hain.",
+    title: "Save My GPA Arc",
+    subtitle: "Weak topic detected. We ride at dawn.",
     tone: "border-red-500/20 bg-red-500/8 text-red-300",
   },
   {
-    title: "15-Minute Jigar Sprint",
-    subtitle: "Quick win before dimagh 17 tabs aur 3 reels khol de",
+    title: "15-Minute Lock In",
+    subtitle: "Quick win before your brain opens 17 tabs",
     tone: "border-lime-400/20 bg-lime-400/8 text-lime-300",
   },
   {
-    title: "Sach Bata, Boards Mein Kya Aana Hai?",
-    subtitle: "High-yield revision mode, no andaza committee needed",
+    title: "No Cap, What Comes in Boards?",
+    subtitle: "High-yield revision mode, minus the guesswork",
     tone: "border-sky-500/20 bg-sky-500/8 text-sky-300",
   },
-];
-
-const SHUGAL_MODES = [
-  { label: "Seedha Samjhao", desc: "No extra sauce, bas clear parhai" },
-  { label: "Thora Shugal", desc: "Relatable examples, halki masti" },
-  { label: "Bachao Yaar", desc: "Crash mode for panic revision" },
-];
-
-const SHUGAL_STATUS = [
-  "Scene on hai",
-  "Aaj full tayyari mood",
-  "Thora cooked, magar recover ho raha hai",
-  "Parhai ka nasha, reels ka fasana",
 ];
 
 const EXPERIENCE_PANELS = [
@@ -283,8 +270,8 @@ export default function LandingPage() {
               T
             </div>
             <div>
-              <div className="text-lg font-black tracking-tight">Taleem</div>
-              <div className="text-[10px] uppercase tracking-[0.28em] text-white/40">Parhai ka scene, board exams ka system</div>
+              <div className="text-lg font-black tracking-tight">Tutify</div>
+              <div className="text-[10px] uppercase tracking-[0.28em] text-white/40">Study OS for board exams</div>
             </div>
           </div>
 
@@ -365,7 +352,7 @@ export default function LandingPage() {
                       should feel like
                       <br />
                       <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-lime-300 bg-clip-text text-transparent">
-                        a proper comeback arc, na ke azaab.
+                        a main-character comeback, not misery.
                       </span>
                     </>
                   ) : (
@@ -389,8 +376,8 @@ export default function LandingPage() {
                   className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/68 sm:text-xl"
                 >
                   {audience === "student"
-                    ? "Taleem is a curriculum-aware AI study space for FSc and Matric students: learn fast, test yourself instantly, fix weak topics before they become jump scares, aur parhai ka scene thora less painful banao. Thora scene on, thora tension off, full shugal with actual results."
-                    : "Taleem gives students a 24/7 board-aligned AI tutor, and gives parents a calm view of consistency, weak areas, and readiness so support feels informed instead of intrusive."}
+                    ? "Tutify is a curriculum-aware AI study space for FSc and Matric students: learn fast, test yourself instantly, fix weak topics before they become jump scares, and stay in your academic comeback era."
+                    : "Tutify gives students a 24/7 board-aligned AI tutor, and gives parents a calm view of consistency, weak areas, and readiness so support feels informed instead of intrusive."}
                 </motion.p>
 
                 <motion.div
@@ -430,23 +417,6 @@ export default function LandingPage() {
                     </div>
                   ))}
                 </motion.div>
-
-                {audience === "student" && (
-                  <motion.div
-                    custom={5}
-                    variants={fadeUp}
-                    initial="hidden"
-                    animate="visible"
-                    className="mt-6 flex flex-wrap items-center justify-center gap-3"
-                  >
-                    {SHUGAL_MODES.map((mode) => (
-                      <div key={mode.label} className="rounded-2xl border border-white/10 bg-black/15 px-4 py-3 text-left">
-                        <div className="text-sm font-semibold text-white">{mode.label}</div>
-                        <div className="mt-1 text-xs text-white/50">{mode.desc}</div>
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
               </motion.div>
             </AnimatePresence>
           </motion.div>
@@ -470,7 +440,7 @@ export default function LandingPage() {
                       Physics · Newton&apos;s Laws · Live session
                     </div>
                   </div>
-                  <Badge className="border-lime-300/20 bg-lime-300/10 text-lime-200">Board-ready mode, shugal-friendly</Badge>
+                  <Badge className="border-lime-300/20 bg-lime-300/10 text-lime-200">Board-ready mode</Badge>
                 </div>
 
                 <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
@@ -478,10 +448,10 @@ export default function LandingPage() {
                     <div className="mb-4 flex items-center justify-between">
                       <div>
                         <div className="text-sm font-semibold text-white">AI Professor</div>
-                        <div className="text-xs text-white/45">Friendly mode · Urdu/English switch · zero aura loss · full tameez</div>
+                        <div className="text-xs text-white/45">Friendly mode · Urdu/English switch · zero aura loss</div>
                       </div>
                       <div className="rounded-full border border-sky-400/20 bg-sky-400/10 px-3 py-1 text-xs text-sky-200">
-                        Scene garam hai
+                        Cooking live
                       </div>
                     </div>
 
@@ -491,7 +461,7 @@ export default function LandingPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="max-w-[85%] rounded-[22px] rounded-tl-md bg-white/8 px-4 py-3 text-sm leading-relaxed text-white/80"
                       >
-                        Think of inertia like your Sunday nap. It keeps going unless someone ya amma ka awaaz system vibe ruin na kar de. Seedhi baat, no fazool scene. I&apos;ll explain it the exact way board answers want too.
+                        Think of inertia like your Sunday nap. It keeps going unless someone or something ruins the vibe. I&apos;ll explain it the exact way board answers want too.
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, x: 12 }}
@@ -499,7 +469,7 @@ export default function LandingPage() {
                         transition={{ delay: 0.1 }}
                         className="ml-auto max-w-[74%] rounded-[22px] rounded-tr-md border border-sky-400/20 bg-sky-400/10 px-4 py-3 text-sm text-sky-50"
                       >
-                        Bet. Board wali definition do, phir aik MCQ bhi maaro. Zyada filmy mat ho.
+                        Bet. Give me the board definition and one MCQ after.
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0, x: -12 }}
@@ -507,16 +477,16 @@ export default function LandingPage() {
                         transition={{ delay: 0.2 }}
                         className="max-w-[85%] rounded-[22px] rounded-tl-md bg-white/8 px-4 py-3 text-sm leading-relaxed text-white/75"
                       >
-                        Board definition saved. I&apos;ll test you right after the explanation so it actually sticks and doesn&apos;t evaporate after 4 minutes. Full parhai, thora shugal, zero fazool lambi kahani.
+                        Board definition saved. I&apos;ll test you right after the explanation so it actually sticks and doesn&apos;t evaporate after 4 minutes.
                         <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-lime-200/80">
                           <span className="h-2 w-2 rounded-full bg-lime-300 animate-pulse" />
-                          board examiner ko pasand aayega
+                          examiner-safe phrasing
                         </div>
                       </motion.div>
                     </div>
 
                     <div className="mt-5 flex flex-wrap gap-2">
-                      {["Yaar bilkul zero se samjhao", "Real-life wala scene do", "Derivation kholo", "Test lo, beizzati softly"].map((item) => (
+                      {["Explain like I missed the whole class", "Give real-life lore", "Show derivation", "Test me, no mercy"].map((item) => (
                         <button
                           key={item}
                           className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/65 transition-colors hover:bg-white/10 hover:text-white"
@@ -530,7 +500,7 @@ export default function LandingPage() {
                   <div className="space-y-4 bg-white/[0.03] p-5">
                     <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/50">
                       <Zap className="h-4 w-4 text-sky-300" />
-                      Smart whiteboard, no bakwaas mode
+                      Smart whiteboard
                     </div>
 
                     <div className="rounded-[24px] border border-sky-400/20 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.16),transparent_45%),rgba(255,255,255,0.04)] p-5">
@@ -546,19 +516,19 @@ export default function LandingPage() {
                     <div className="grid gap-3 sm:grid-cols-2">
                       <div className="rounded-[24px] border border-lime-300/20 bg-lime-300/8 p-4">
                         <div className="text-xs text-lime-200/80">Exam mode</div>
-                        <div className="mt-2 text-base font-semibold text-white">5 MCQs ready. Halka sa dhulai, magar pyar se.</div>
-                        <div className="mt-1 text-sm text-white/60">Instant feedback, weak-area logging, no chupke se emotional damage</div>
+                        <div className="mt-2 text-base font-semibold text-white">5 MCQs ready to humble you nicely</div>
+                        <div className="mt-1 text-sm text-white/60">Instant feedback, weak-area logging, no mystery damage</div>
                       </div>
                       <div className="rounded-[24px] border border-fuchsia-400/20 bg-fuchsia-400/8 p-4">
                         <div className="text-xs text-fuchsia-200/80">Camera doubt solving</div>
                         <div className="mt-2 text-base font-semibold text-white">Upload the academic jump scare</div>
-                        <div className="mt-1 text-sm text-white/60">Textbook, notes, blurry snap, ya woh handwritten azaab</div>
+                        <div className="mt-1 text-sm text-white/60">Textbook, notes, blurry snap, or handwritten chaos</div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-3 rounded-[24px] border border-white/10 bg-black/15 px-4 py-3">
                       <Camera className="h-5 w-5 text-white/35" />
-                      <div className="flex-1 text-sm text-white/45">Jo sawal dimaagh kha raha hai na, woh yahan phenko...</div>
+                      <div className="flex-1 text-sm text-white/45">Ask anything or drop the question that&apos;s been violating your peace...</div>
                       <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-lime-300 text-slate-950">
                         <MessageSquare className="h-4 w-4" />
                       </div>
@@ -571,10 +541,10 @@ export default function LandingPage() {
                 <div className="rounded-[30px] border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
-                      <div className="text-sm font-semibold text-white">Aaj ka scene</div>
-                      <div className="text-xs text-white/45">Tiny chaos, clear goals, zero academic doomscrolling. Bas kaam ki baat.</div>
+                      <div className="text-sm font-semibold text-white">Today&apos;s mission</div>
+                      <div className="text-xs text-white/45">Tiny chaos, clear goals, zero academic doomscrolling</div>
                     </div>
-                    <Badge className="border-orange-400/20 bg-orange-400/10 text-orange-200">42 days left. Ab hawa tight.</Badge>
+                    <Badge className="border-orange-400/20 bg-orange-400/10 text-orange-200">42 days left. We lock in now.</Badge>
                   </div>
                   <div className="space-y-3">
                     {STUDENT_ACTIONS.map((action) => (
@@ -590,28 +560,21 @@ export default function LandingPage() {
                       </button>
                     ))}
                   </div>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {SHUGAL_STATUS.map((status) => (
-                      <div key={status} className="rounded-full border border-white/10 bg-black/15 px-3 py-1.5 text-xs text-white/60">
-                        {status}
-                      </div>
-                    ))}
-                  </div>
                 </div>
 
                 <div className="rounded-[30px] border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
                       <div className="text-sm font-semibold text-white">Momentum tracker</div>
-                      <div className="text-xs text-white/45">Proof that tum bilkul gaye guzray nahi ho, bas thora sa system chahiye</div>
+                      <div className="text-xs text-white/45">Proof that you&apos;re not washed, just under-optimized</div>
                     </div>
                     <Flame className="h-5 w-5 text-orange-300" />
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     {[
-                      { label: "Josh", value: "12", tone: "text-orange-200" },
+                      { label: "Streak", value: "12", tone: "text-orange-200" },
                       { label: "XP", value: "480", tone: "text-sky-200" },
-                      { label: "Tayyari", value: "74%", tone: "text-lime-200" },
+                      { label: "Mastery", value: "74%", tone: "text-lime-200" },
                     ].map((item) => (
                       <div key={item.label} className="rounded-[22px] border border-white/10 bg-black/10 p-4 text-center">
                         <div className={cn("text-2xl font-black", item.tone)}>{item.value}</div>
@@ -621,7 +584,7 @@ export default function LandingPage() {
                   </div>
                   <div className="mt-4 rounded-[22px] border border-white/10 bg-black/10 p-4">
                     <div className="mb-2 flex items-center justify-between text-sm">
-                      <span className="text-white/65">Physics tayyari meter</span>
+                      <span className="text-white/65">Physics readiness arc</span>
                       <span className="font-semibold text-sky-200">81%</span>
                     </div>
                     <div className="h-2 overflow-hidden rounded-full bg-white/8">
@@ -695,7 +658,7 @@ export default function LandingPage() {
       <section id="experience" className="px-4 py-24 sm:px-6">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto mb-14 max-w-2xl text-center">
-            <Badge className="border-sky-400/20 bg-sky-400/10 text-sky-200">Revamp direction, thora desi spice</Badge>
+            <Badge className="border-sky-400/20 bg-sky-400/10 text-sky-200">Revamp direction</Badge>
             <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">
               A better experience for students
               <br />
@@ -975,7 +938,7 @@ export default function LandingPage() {
               and clearer value for both audiences.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-white/68">
-              This version reframes Taleem as a study operating system instead of a generic AI tool, while making space for a quieter parent experience inside the same product.
+              This version reframes Tutify as a study operating system instead of a generic AI tool, while making space for a quieter parent experience inside the same product.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link href="/signup">

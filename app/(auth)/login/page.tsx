@@ -48,14 +48,14 @@ export default function LoginPage() {
       <div className="flex justify-center mb-8">
         <Link href="/" className="flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold shadow-lg shadow-purple-900/50">T</div>
-          <span className="text-xl font-bold text-gradient-purple">Taleem</span>
+          <span className="text-xl font-bold text-gradient-purple">Tutify</span>
         </Link>
       </div>
 
       <div className="glass-strong rounded-2xl border border-border p-8">
         <div className="mb-6">
           <h1 className="text-2xl font-bold mb-1">Welcome back</h1>
-          <p className="text-muted-foreground text-sm">Continue learning with Taleem, your AI professor</p>
+          <p className="text-muted-foreground text-sm">Continue learning with your AI professor</p>
         </div>
 
         <Button

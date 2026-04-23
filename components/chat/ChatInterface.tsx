@@ -36,11 +36,11 @@ interface ChatInterfaceProps {
 }
 
 const QUICK_PROMPTS = [
-  "Yaar zero se samjhao",
-  "Real-life wala example do",
-  "Derivation khol do",
-  "Samajh nahi aaya, aur simple karo",
-  "Boards mein asal mein kya aayega?",
+  "Explain this from the beginning",
+  "Give me a real-life example",
+  "Show me the derivation",
+  "I don't understand — simplify please",
+  "What will come in the board exam?",
 ];
 
 export default function ChatInterface({ topicId, topicName, subjectSlug, onExamModeStart }: ChatInterfaceProps) {
@@ -75,7 +75,7 @@ export default function ChatInterface({ topicId, topicName, subjectSlug, onExamM
       const welcome: Message = {
         id: "welcome",
         role: "assistant",
-        content: `**Assalam o Alaikum!** 👋 I'm your Taleem professor. Aaj hum **${topicName}** parhain ge.\n\nMain step-by-step samjhaunga, math clearly dikhaunga, aur board exam ke liye proper tayyar karunga. Kis angle se start karna hai, ya full overview chahiye?`,
+        content: `**Assalam o Alaikum!** 👋 I'm your Tutify professor. Today we're studying **${topicName}**.\n\nI'll explain everything step-by-step, show you the math clearly, and make sure you're ready for your board exam. What aspect would you like to start with, or shall I give you a complete overview?`,
       };
       setMessages([welcome]);
       setLatestAIContent(welcome.content);
@@ -286,12 +286,12 @@ export default function ChatInterface({ topicId, topicName, subjectSlug, onExamM
           </div>
           <div className="flex-1 min-w-0">
             <div className="font-semibold text-sm truncate">
-              {topicName || "Taleem Professor"}
+              {topicName || "Tutify Professor"}
             </div>
             <div className="flex items-center gap-1.5 mt-0.5">
               <div className={cn("w-1.5 h-1.5 rounded-full", isStreaming ? "bg-purple-400 animate-pulse" : "bg-green-400")} />
               <span className="text-xs text-muted-foreground">
-                {isStreaming ? "Scene samjha raha hoon..." : "Parhai ke liye ready"}
+                {isStreaming ? "Explaining..." : "Ready to teach"}
               </span>
             </div>
           </div>
@@ -302,7 +302,7 @@ export default function ChatInterface({ topicId, topicName, subjectSlug, onExamM
               variant="ghost"
               size="icon-sm"
               onClick={() => setBilingualMode(!bilingualMode)}
-              title={bilingualMode ? "English pe jao" : "Urdu mode on karo"}
+              title={bilingualMode ? "Switch to English" : "Switch to Urdu mode"}
               className={cn(bilingualMode && "text-teal-400 bg-teal-900/20")}
             >
               <Globe className="w-4 h-4" />
@@ -314,7 +314,7 @@ export default function ChatInterface({ topicId, topicName, subjectSlug, onExamM
                 if (isSpeaking) stopSpeaking();
                 setVoiceEnabled(!voiceEnabled);
               }}
-              title={voiceEnabled ? "Voice band karo" : "Voice on karo"}
+              title={voiceEnabled ? "Disable voice" : "Enable voice output"}
               className={cn(voiceEnabled && "text-purple-400 bg-purple-900/20")}
             >
               {voiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
@@ -327,7 +327,7 @@ export default function ChatInterface({ topicId, topicName, subjectSlug, onExamM
                 className="gap-1.5 ml-1"
               >
                 <Target className="w-3.5 h-3.5" />
-                Le test lo
+                Test Me
               </Button>
             )}
           </div>
@@ -355,7 +355,7 @@ export default function ChatInterface({ topicId, topicName, subjectSlug, onExamM
               >
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                  <span className="text-xs text-muted-foreground">Shuru ka scene:</span>
+                  <span className="text-xs text-muted-foreground">Quick start:</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {QUICK_PROMPTS.map((prompt) => (

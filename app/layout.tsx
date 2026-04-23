@@ -3,11 +3,11 @@ import "./globals.css";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Taleem — Your AI Professor for Board Exams",
-  description: "Score 85%+ on BISE board exams with Taleem, your personal AI professor. Curriculum-aligned, exam-ready, available 24/7.",
+  title: "Tutify — Your AI Professor for Board Exams",
+  description: "Score 85%+ on BISE board exams with your personal AI professor. Curriculum-aligned, exam-ready, available 24/7.",
   keywords: ["AI tutor", "FSc", "Matric", "BISE", "board exam", "Pakistan", "physics", "chemistry", "math"],
   openGraph: {
-    title: "Taleem — AI Professor for Pakistani Students",
+    title: "Tutify — AI Professor for Pakistani Students",
     description: "Your personal AI professor that knows the BISE syllabus, tracks your progress, and helps you score 85%+",
     type: "website",
   },
