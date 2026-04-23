@@ -47,7 +47,7 @@ export default function Sidebar({ profile, collapsed }: SidebarProps) {
         <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-purple-900/50 flex-shrink-0">
           T
         </div>
-        {!collapsed && <span className="font-bold text-gradient-purple">Tutify</span>}
+        {!collapsed && <span className="font-bold text-gradient-purple">Taleem</span>}
       </div>
 
       {/* Navigation */}

@@ -49,14 +49,18 @@ export default function TopicDetail({ topic, chapter, subject, subjectKey, progr
   const router = useRouter();
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [showExam, setShowExam] = useState(false);
-  const storageKey = `tutify_checklist_${topic.id}`;
+  const storageKey = `taleem_checklist_${topic.id}`;
+  const legacyStorageKey = `tutify_checklist_${topic.id}`;
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) setChecked(new Set(JSON.parse(saved)));
+      const saved = localStorage.getItem(storageKey) || localStorage.getItem(legacyStorageKey);
+      if (saved) {
+        setChecked(new Set(JSON.parse(saved)));
+        if (!localStorage.getItem(storageKey)) localStorage.setItem(storageKey, saved);
+      }
     } catch {}
-  }, [storageKey]);
+  }, [legacyStorageKey, storageKey]);
 
   function toggleConcept(concept: string) {
     setChecked((prev) => {
