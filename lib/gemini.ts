@@ -1,6 +1,19 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+let genAI: GoogleGenerativeAI | null = null;
+
+function getGeminiClient() {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("GEMINI_API_KEY is not configured");
+  }
+
+  if (!genAI) {
+    genAI = new GoogleGenerativeAI(apiKey);
+  }
+
+  return genAI;
+}
 
 export const PROFESSOR_PERSONALITIES = {
   friendly: {
@@ -143,7 +156,7 @@ Return ONLY valid JSON:
 }
 
 export function getGeminiModel(modelName: string = "gemini-2.0-flash-lite") {
-  return genAI.getGenerativeModel({
+  return getGeminiClient().getGenerativeModel({
     model: modelName,
     safetySettings: [
       { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },

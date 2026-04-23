@@ -6,10 +6,18 @@ import Groq from "groq-sdk";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+function getGroqClient() {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    throw new Error("GROQ_API_KEY is not configured");
+  }
+
+  return new Groq({ apiKey });
+}
 
 export async function POST(request: NextRequest) {
   try {
+    const groq = getGroqClient();
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
